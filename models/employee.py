@@ -5,3 +5,12 @@ class Employee():
         self.name = name
         self.address = address
         self.location_id = location_id
+        self.location = None
+
+    def serialized(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "address": self.address,
+            "location id": self.location_id
+        }
