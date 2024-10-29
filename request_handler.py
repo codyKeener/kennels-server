@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import get_all_animals, get_single_animal, get_all_locations, get_single_location, get_all_employees, get_single_employee, get_all_customers, get_single_customer, create_animal, create_location, create_employee, create_customer, delete_animal, delete_location, delete_employee, delete_customer, update_animal, update_location, update_employee, update_customer, get_animal_by_location, get_animal_by_status, get_employee_by_location, get_customer_by_email
+from views import get_all_animals, get_single_animal, get_all_locations, get_single_location, get_all_employees, get_single_employee, get_all_customers, get_single_customer, create_animal, create_location, create_employee, create_customer, delete_animal, delete_location, delete_employee, delete_customer, update_animal, update_location, update_employee, update_customer, get_animal_by_location, get_animal_by_status, get_employee_by_location, get_customer_by_email, search_animal
 import json
 from urllib.parse import urlparse, parse_qs
 
@@ -112,6 +112,9 @@ class HandleRequests(BaseHTTPRequestHandler):
             # see if the query dictionary has a status key
             if query.get('status') and resource == 'animals':
                 response = get_animal_by_status(query['status'][0])
+                
+            if query.get('search') and resource == 'animals':
+                response = search_animal(query['search'][0])
 
         self.wfile.write(json.dumps(response).encode())
 
